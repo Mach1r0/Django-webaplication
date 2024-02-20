@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Review(models.Model):
+    """
+    Model representing a review.
+    """
     title = models.CharField(max_length=255)
     content = models.TextField()
     starts = models.IntegerField()
@@ -15,11 +18,17 @@ class Review(models.Model):
     )
 
 class Category(models.Model):
+    """
+    Model representing a category.
+    """
     name = models.CharField(max_length=255)
     ordinal = models.IntegerField()
     business = models.ManyToManyField('Business')
 
 class Business(models.Model):
+    """
+    Model representing a business.
+    """
     LOW = "$"
     MID_LOW = "$$"
     MID = "$$$"
@@ -32,7 +41,7 @@ class Business(models.Model):
         (MID, 'Moderate'),
         (MID_HIGH, 'Expensive'),
         (HIGH, 'Very Expensive')
-]
+    ]
     
     name = models.CharField(max_length=255)
     description = models.TextField()
