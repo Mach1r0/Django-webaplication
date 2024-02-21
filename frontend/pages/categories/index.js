@@ -1,6 +1,7 @@
 import { Grid, Card, CardHeader, Avatar, makeStyles } from '@material-ui/core';
+import Layout from '../../components/layout'
 
-const useSyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         margin: '25px auto', 
         maxWidth: '95vw'
@@ -8,8 +9,9 @@ const useSyles = makeStyles((theme) => ({
 }))
 
 export default function Home() {
-    const classes = useSyles()
+    const classes = useStyles()
     return (
+        <Layout>
         <Grid container className={classes.root} spacing={3}>
             <Grid item xs={12} md={4}>
                 <Card>
@@ -48,5 +50,6 @@ export default function Home() {
                 </Card>
             </Grid>      
         </Grid>
+    </Layout>
     )
 }
