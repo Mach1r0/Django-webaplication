@@ -1,10 +1,26 @@
 import React from "react";
-import Layout from "../../components/Layout.js";
+import Layout from "../../components/layout.js";
+import {Box, Card, CardContent, Grid, Link, Typography, makeStyles} from "@material-ui/core";
 
-const Id = () => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+      margin: '25px auto', 
+      maxWidth: '95vw'
+  },
+  subtitle: {
+    color: 'grey'
+  },
+  card: {
+    cursor: 'pointer' 
+  }
+}))
+
+const Category = () => {
+  const classes = useStyles()
+ 
   return (
     <Layout>
-      <Grid container>
+      <Grid container className={classes.root}>
         <Grid item xs={12} md={3}>
           todo filters
         </Grid>
@@ -34,4 +50,4 @@ const Id = () => {
   );
 };
 
-export default Id;
+export default Category;

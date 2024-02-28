@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: '25px auto', 
+        margin: '75px auto', 
         maxWidth: '95vw'
     }
 }))
