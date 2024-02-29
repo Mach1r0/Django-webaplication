@@ -22,6 +22,7 @@ class Category(models.Model):
     Model representing a category.
     """
     name = models.CharField(max_length=255)
+    slug = models.CharField(max_length=100, unique=True, blank=True, null=True)
     ordinal = models.IntegerField()
     business = models.ManyToManyField('Business')
 

@@ -41,7 +41,7 @@ export async function getServerSideProps() {
         const { data } = await axios.get('http://localhost:8000/categories');
         return {
             props: {
-                categories: data  // Change this line
+                categories: data  
             }
         }
     } catch (error) {
