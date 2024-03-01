@@ -10,6 +10,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import axios from "axios";
+import { useRouter} from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Category = ({ category }) => {
   const classes = useStyles();
+  const router = useRouter()
+  const handleBusinessClick = business => { 
+    router.push(`/business/${business.slug}`)
+  }
 
   return (
     <Layout>
@@ -36,7 +41,7 @@ const Category = ({ category }) => {
 
         <Grid item xs={12} md={9}>
           {category.business.map((business) => (
-            <Card className={classes.card} key={business.id}>
+            <Card className={classes.card} onClick={() => handleBusinessClick(business)}>
               <Box>
                 <CardContent>
                   <Grid container>
