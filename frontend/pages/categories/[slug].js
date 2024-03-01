@@ -9,7 +9,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import axios from 'axios';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,34 +35,35 @@ const Category = ({ category }) => {
         </Grid>
 
         <Grid item xs={12} md={9}>
-        {category && category.business && category.business.map((business) => (
-          <Card className={classes.card}>
+          {category.business.map((business) => (
+            <Card className={classes.card} key={business.id}>
               <Box>
                 <CardContent>
                   <Grid container>
                     <Grid item xs={6}>
-                      <Typography variant="h5">Business Name</Typography>
-                      <Typography variant="h5">$$$</Typography>
-                      <Link variant="subtitle1" href="http://localhost:3000">
-                        Business Website
+                      <Typography variant="h5">{business.name}</Typography>
+                      <Typography variant="h5">{business.price_range}</Typography>
+                      <Link variant="subtitle1" href={business.website}>
+                        {business.website}
                       </Link>
                       <Typography variant="subtitle1">
-                        Business phone
+                      {business.phone}
                       </Typography>
                       <Typography
                         variant="subtitle1"
-                        className={classes.subtitle}
-                      >
-                        Description
+                        className={classes.subtitle}>
+                    {business.description}
                       </Typography>
                     </Grid>
 
                     <Grid xs={6}>
                       <Typography variant="h5">Todo reviews</Typography>
                       <Typography variant="subtitle1">
-                        Business Hours
+                          {business.hours}
                       </Typography>
-                      <Typography variant="subtitle1">Address</Typography>
+                      <Typography variant="subtitle1">
+                        {business.street_address} {business.city}, {business.region} {business.postal_code} {business.country}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -76,13 +77,14 @@ const Category = ({ category }) => {
 };
 
 export async function getServerSideProps({ query: { slug } }) {
-  const { data } = await axios.get(`http://localhost:8000/categories/${slug}`);
-
+  const { data } = await axios.get(
+    `http://localhost:8000/categories?slug=${slug}`
+  );
   return {
     props: {
-      category: data.results[0] || null
-      }
-    }
-  }
+      category: data[0] || null,
+    },
+  };
+}
 
 export default Category;
