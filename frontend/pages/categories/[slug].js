@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { useRouter} from 'next/router'
+import AvarageReview from "../../components/AvarageReview.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +63,7 @@ const Category = ({ category }) => {
                     </Grid>
 
                     <Grid xs={6}>
-                      <Typography variant="h5">Todo reviews</Typography>
+                      <AvarageReview value={4.6}/>
                       <Typography variant="subtitle1">
                           {business.hours}
                       </Typography>
