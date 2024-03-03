@@ -40,8 +40,8 @@ const Category = ({ category }) => {
         </Grid>
 
         <Grid item xs={12} md={9}>
-          {category.business.map((business) => (
-            <Card className={classes.card} onClick={() => handleBusinessClick(business)}>
+        {category && category.business.map((business) => (
+          <Card className={classes.card} onClick={() => handleBusinessClick(business)}>
               <Box>
                 <CardContent>
                   <Grid container>
