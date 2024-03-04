@@ -14,7 +14,8 @@ class Review(models.Model):
     )
     business = models.ForeignKey(
         'Business', 
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='reviews'
     )
 
 class Category(models.Model):
