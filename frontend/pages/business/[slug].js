@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
  
-export default function BusinessPage({business}) {
+export default function BusinessPage({business, averageReview}) {
   const classes = useStyles()
 
   return (
@@ -27,7 +27,7 @@ export default function BusinessPage({business}) {
             <Grid item xs={12} md={6}>
             <Typography variant='h2'>{business.name}</Typography>
             <Typography variant='h4'>{business.price_range}</Typography>
-            <AverageReview value={3}/> 
+            <AverageReview value={averageReview}/> 
         
         <div className={classes.addReview}>
           <Button variant='contained' color='primary'>Write a review</Button>
@@ -66,10 +66,26 @@ export default function BusinessPage({business}) {
 
 export async function getServerSideProps({ query: { slug } }) {
   const { data } = await axios.get(`http://localhost:8000/businesses?slug=${slug}`);
+  
+  const business = data.find(b => b.slug === slug) || null;
+  
+  let avgReview = null
+
+  if (business && business.reviews && business.reviews.length > 0){
+    
+    let totalReviewsStars = 0 
+    
+    for (let i = 0; i < business.reviews.length; i++) {
+      totalReviewsStars = totalReviewsStars + Number(business.reviews[i].stars)
+    }
+    const inverse = 1/2 
+    avgReview = Math.round((totalReviewsStars / business.reviews.length) / inverse) * inverse
+  }
+
   return {
     props: {
-      business: data[0] || null,
+      business: business,
+      averageReview: avgReview
     },
   };
 }
-

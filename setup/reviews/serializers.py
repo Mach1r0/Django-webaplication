@@ -38,7 +38,9 @@ class BusinessSerializer(serializers.HyperlinkedModelSerializer):
             'reviews',
         ]
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
-    business = BusinessSerializer(many=True)
+    business = BusinessSerializer(many=True, read_only=True)
+    business_ids = serializers.PrimaryKeyRelatedField(many=True, write_only=True, queryset=Business.objects.all(), source='business')
+
     class Meta: 
         model = Category 
         depth = 1
@@ -47,5 +49,12 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
             'name',
             'slug', 
             'ordinal', 
-            'business', 
-        ]
+            'business',
+            'business_ids'
+        ] 
+
+    def create(self, validated_data):
+        business = validated_data.pop('business')
+        category = Category.objects.create(**validated_data)
+        category.business.set(business)
+        return category

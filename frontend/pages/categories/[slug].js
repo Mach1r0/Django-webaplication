@@ -9,7 +9,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import { useRouter} from 'next/router'
 import AvarageReview from "../../components/AvarageReview.js";
 
@@ -86,6 +86,22 @@ export async function getServerSideProps({ query: { slug } }) {
   const { data } = await axios.get(
     `http://localhost:8000/categories?slug=${slug}`
   );
+
+  let avgReview = null
+
+  if(data && data.results & data.results[0].business.length > 0){
+    for( let i = 0; i < data.results[0].business.legth; i++){
+      let totalReviewStar = 0;
+      for (let j = 0; j < data.results[0].business[i].reviews.legth; j++){
+        totalReviewStar = totalReviewStar + Number(data.results[0].business[i].reviews[j].stars)
+      }
+      const inverse = 1/2 
+
+      avgReview = 
+    }
+  }
+
+
   return {
     props: {
       category: data[0] || null,
