@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Category = ({ category }) => {
+const Category = ({ category, avarageReview }) => {
   const classes = useStyles();
   const router = useRouter()
   const handleBusinessClick = business => { 
@@ -41,41 +41,42 @@ const Category = ({ category }) => {
         </Grid>
 
         <Grid item xs={12} md={9}>
-        {category && category.business.map((business) => (
-          <Card className={classes.card} onClick={() => handleBusinessClick(business)}>
-              <Box>
-                <CardContent>
-                  <Grid container>
-                    <Grid item xs={6}>
-                      <Typography variant="h5">{business.name}</Typography>
-                      <Typography variant="h5">{business.price_range}</Typography>
-                      <Link variant="subtitle1" href={business.website}>
-                        {business.website}
-                      </Link>
-                      <Typography variant="subtitle1">
-                      {business.phone}
-                      </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        className={classes.subtitle}>
-                    {business.description}
-                      </Typography>
-                    </Grid>
+        {category && category.business && category.business.map((business) => (
+  <Card className={classes.card} onClick={() => handleBusinessClick(business)}>
+    <Box>
+      <CardContent>
+        <Grid container>
+          <Grid item xs={6}>
+            <Typography variant="h5">{business.name}</Typography>
+            <Typography variant="h5">{business.price_range}</Typography>
+            <Link variant="subtitle1" href={business.website}>
+              {business.website}
+            </Link>
+            <Typography variant="subtitle1">
+              {business.phone}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              className={classes.subtitle}>
+              {business.description}
+            </Typography>
+          </Grid>
 
-                    <Grid xs={6}>
-                      <AvarageReview value={4.6}/>
-                      <Typography variant="subtitle1">
-                          {business.hours}
-                      </Typography>
-                      <Typography variant="subtitle1">
-                        {business.street_address} {business.city}, {business.region} {business.postal_code} {business.country}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Box>
-            </Card>
-          ))}
+          <Grid xs={6}>
+            <AvarageReview value={avarageReview[business.url]}/>
+            <Typography variant="subtitle1">
+              {business.hours}
+            </Typography>
+            <Typography variant="subtitle1">
+              {business.street_address} {business.city}, {business.region} {business.postal_code} {business.country}
+            </Typography>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Box>
+  </Card>
+))}
+
         </Grid>
       </Grid>
     </Layout>
@@ -87,26 +88,28 @@ export async function getServerSideProps({ query: { slug } }) {
     `http://localhost:8000/categories?slug=${slug}`
   );
 
-  let avgReview = null
+  let avgReview = {};
 
-  if(data && data.results & data.results[0].business.length > 0){
-    for( let i = 0; i < data.results[0].business.legth; i++){
+  if (data && data.results && data.results[0].business.length > 0) {
+    for (let i = 0; i < data.results[0].business.length; i++) {
       let totalReviewStar = 0;
-      for (let j = 0; j < data.results[0].business[i].reviews.legth; j++){
-        totalReviewStar = totalReviewStar + Number(data.results[0].business[i].reviews[j].stars)
+      if (data.results[0].business[i].reviews && data.results[0].business[i].reviews.length > 0) {
+        for (let j = 0; j < data.results[0].business[i].reviews.length; j++) {
+          totalReviewStar += Number(data.results[0].business[i].reviews[j].stars);
+        }
+        const inverse = 1 / 2;
+        avgReview[data.results[0].business[i].url] = Math.round((totalReviewStar / data.results[0].business[i].reviews.length) / inverse) * inverse;
       }
-      const inverse = 1/2 
-
-      avgReview = 
     }
   }
 
-
   return {
     props: {
-      category: data[0] || null,
+      category: data || null,
+      averageReview: avgReview
     },
   };
 }
+
 
 export default Category;
