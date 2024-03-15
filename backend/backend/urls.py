@@ -1,3 +1,4 @@
+
 from django.urls import path, include
 from rest_framework import routers
 from reviews import views
@@ -7,7 +8,7 @@ router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'reviews', views.ReviewViewSet)
 router.register(r'businesses', views.BusinessViewSet)
-router.register(r'categories',views.CategoryViewSet)
+router.register(r'categories', views.CategoryViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
