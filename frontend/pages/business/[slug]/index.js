@@ -1,5 +1,5 @@
-import Layout from '../../components/Layout'
-import AverageReview from '../../components/AverageReview'
+import Layout from '../../../components/Layout'
+import AverageReview from '../../../components/AverageReview'
 import { Button, Card, Grid, Link, List, ListItem, ListItemText, makeStyles, Typography } from "@material-ui/core";
 import axios from 'axios'
 
