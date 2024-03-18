@@ -151,7 +151,7 @@ const Category = ({ category, averageReviews }) => {
 }
 
 export async function getServerSideProps({ query: {slug} }) {
-  const { data } = await axios.get(`http://localhost:8000/categories?slug=${slug}`)
+  const { data } = await axios.get(`http://localhost:7777/categories?slug=${slug}`)
 
   let avgReviews = {}
 
