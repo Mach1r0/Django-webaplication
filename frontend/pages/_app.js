@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import '../styles/globals.css'
-import { AuthenticadorContextProvider } from '../context/AuthenticationContext'
-
+import { AuthenticationProvider } from '../context/AuthenticationContext'
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -11,9 +10,10 @@ function MyApp({ Component, pageProps }) {
     }
   }, [])
   return (
-  <AuthenticadorContextProvider> 
+    <AuthenticationProvider>
       <Component {...pageProps} />
-  </AuthenticadorContextProvider>)
+    </AuthenticationProvider>
+  )
 }
 
 export default MyApp
