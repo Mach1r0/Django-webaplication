@@ -41,7 +41,7 @@ export default function Home({ categories }) {
 }
 
 export async function getServerSideProps() {
-  const { data } = await axios.get('http://localhost:7777/categories')
+  const { data } = await axios.get('http://localhost:8000/categories')
 
   return {
     props: {

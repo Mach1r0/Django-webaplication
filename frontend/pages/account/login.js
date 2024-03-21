@@ -76,9 +76,9 @@ export default function LoginPage() {
       					</div>
 
       					<div className={classes.linkContainer}>
-                <Link href='register' className={classes.link}>
-                  Don't have an account? Sign Up
-                </Link>
+      						<Link href='/account/register'>
+      							<a className={classes.link}>Don't have an account? Sign Up</a>
+      						</Link>
       					</div>
       				</form>
       			</CardContent>
@@ -90,7 +90,8 @@ export default function LoginPage() {
 }
 
 // export async function getServerSideProps() {
-//   const { data } = await axios.get('http://localhost:7777404-
+//   const { data } = await axios.get('http://localhost:8000/categories')
+
 //   return {
 //     props: {
 //       categories: data.results

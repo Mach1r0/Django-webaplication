@@ -10,14 +10,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class RegisterUserSerializer(serializers.HyperlinkedModelSerializer):
 	def create(self, validated_data):
 		user = User.objects.create_user(
-			email= validated_data['email'],
-			username= validated_data['username'],
-			password = validated_data['password'],
+			email=validated_data['email'],
+			username = validated_data['username'],
+			password = validated_data['password']
 		)
-		
+
 		return user
-	
-	class Meta: 
+
+	class Meta:
 		model = User
 		fields = ['url', 'username', 'password', 'email', 'groups']
 

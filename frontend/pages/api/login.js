@@ -20,7 +20,7 @@ export default async (req, res) => {
     }
 
     try {
-      const { data:accessResponse } = await axios.post('http://localhost:7777/api/token/', body, config)
+      const { data:accessResponse } = await axios.post('http://localhost:8000/api/token/', body, config)
       accessToken = accessResponse.access
       // in production change secure to true
       res.setHeader('Set-Cookie', cookie.serialize('refresh', accessResponse.refresh, {httpOnly: true, secure: false, sameSite: 'strict', maxAge: 60 * 60 * 24, path: '/'}))
@@ -53,7 +53,7 @@ export default async (req, res) => {
         }
       }
 
-      const {data:userData} = await axios.get('http://localhost:7777/api/user/', userConfig)
+      const {data:userData} = await axios.get('http://localhost:8000/api/user/', userConfig)
       console.log(userData)
 
       res.status(200).json({user: userData, access:accessToken})

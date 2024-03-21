@@ -28,6 +28,7 @@ export default function AddReviewPage({ business }) {
   const [stars, setStars] = useState('3')
   const [title, setTitle] = useState('')
   const [comment, setComment] = useState('')
+
   const classes = useStyles()
 
   function getCookie(name) {
@@ -36,6 +37,7 @@ export default function AddReviewPage({ business }) {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
@@ -67,7 +69,7 @@ export default function AddReviewPage({ business }) {
       business: business.url
     }
 
-    const res = axios.post('http://localhost:7777/reviews/', body, config)
+    const res = axios.post('http://localhost:8000/reviews/', body, config)
 
     console.log(res)
   }
@@ -128,7 +130,7 @@ export default function AddReviewPage({ business }) {
 }
 
 export async function getServerSideProps({ query: {slug} }) {
-  const { data } = await axios.get(`http://localhost:7777/businesses?slug=${slug}`)
+  const { data } = await axios.get(`http://localhost:8000/businesses?slug=${slug}`)
 
   return {
     props: {

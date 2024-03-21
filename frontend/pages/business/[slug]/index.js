@@ -127,7 +127,7 @@ export default function BusinessPage({business, averageReview}) {
 }
 
 export async function getServerSideProps({ query: {slug} }) {
-  const { data } = await axios.get(`http://localhost:7777/businesses?slug=${slug}`)
+  const { data } = await axios.get(`http://localhost:8000/businesses?slug=${slug}`)
 
   let avgReview = null
 

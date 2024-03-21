@@ -26,7 +26,7 @@ export const AuthenticationProvider = ({ children }) => {
 		}
 
 		try {
-			const { data:accessResponse } = await axios.post('http://localhost:3001/api/login', body, config)
+			const { data:accessResponse } = await axios.post('http://localhost:3000/api/login', body, config)
 			
 			if (accessResponse && accessResponse.user) {
 				setUser(accessResponse.user)
@@ -53,8 +53,8 @@ export const AuthenticationProvider = ({ children }) => {
 	      return
 		}
 	}
-	const register = async  ({ username, email, password  }) => {
 
+	const register = async ({ username, email, password }) => {
 		const config = {
 			headers: {
 				'Accept': 'application/json',
@@ -64,14 +64,14 @@ export const AuthenticationProvider = ({ children }) => {
 
 		const body = {
 			username,
+			email,
 			password
 		}
 
 		try {
-			//call nextjs api function to create a user
-			await axios.post('http://localhost:3001/api/login', body, config)
-			login({ username, password})
-			 
+			// call nextjs api function to create a user
+			await axios.post('http://localhost:3000/api/register', body, config)
+			login({ username, password })
 		} catch(error) {
 		  if (error.response & error.response.data) {
 		  	setError(error.response.data.message)

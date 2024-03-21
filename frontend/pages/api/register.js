@@ -15,14 +15,12 @@ export default async (req, res) => {
 
     const body = {
       username,
-      password,
-      email
+      email,
+      password
     }
 
     try {
-      await axios.post('http://localhost:7777/api/register/', username, e,aio)
-      accessToken = accessResponse.access
-      // in production change secure to true
+      await axios.post('http://localhost:8000/api/register/', body, config)
     } catch(error) {
       if (error.response) {
         // The request was made and the server responded with a status code
@@ -44,10 +42,7 @@ export default async (req, res) => {
 
       return res.status(500).json({message: 'Something went wrong'})
     }
-
-
-      res.status(200).json({message:"user has been created"})
-    }
+    res.status(200).json({message: "User has been created"})
   } else {
     res.setHeader('Allow', ['POST'])
     res.status(405).json({message: `Method ${req.method} is not allowed`})
