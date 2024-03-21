@@ -1,11 +1,10 @@
 import axios from 'axios'
-import cookie from 'cookie'
 
 export default async (req, res) => {
   let accessToken = null;
 
   if (req.method === 'POST') {
-    const {username, password} = req.body
+    const {username, email, password} = req.body
 
     const config = {
       headers: {
@@ -16,14 +15,14 @@ export default async (req, res) => {
 
     const body = {
       username,
-      password
+      password,
+      email
     }
 
     try {
-      const { data:accessResponse } = await axios.post('http://localhost:7777/api/token/', body, config)
+      await axios.post('http://localhost:7777/api/register/', username, e,aio)
       accessToken = accessResponse.access
       // in production change secure to true
-      res.setHeader('Set-Cookie', cookie.serialize('refresh', accessResponse.refresh, {httpOnly: true, secure: false, sameSite: 'strict', maxAge: 60 * 60 * 24, path: '/'}))
     } catch(error) {
       if (error.response) {
         // The request was made and the server responded with a status code
@@ -46,17 +45,8 @@ export default async (req, res) => {
       return res.status(500).json({message: 'Something went wrong'})
     }
 
-    if (accessToken) {
-      const userConfig = {
-        headers: {
-          'Authorization': 'Bearer ' + accessToken
-        }
-      }
 
-      const {data:userData} = await axios.get('http://localhost:7777/api/user/', userConfig)
-      console.log(userData)
-
-      res.status(200).json({user: userData, access:accessToken})
+      res.status(200).json({message:"user has been created"})
     }
   } else {
     res.setHeader('Allow', ['POST'])

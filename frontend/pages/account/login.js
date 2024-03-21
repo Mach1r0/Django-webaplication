@@ -75,11 +75,11 @@ export default function LoginPage() {
       						<Button variant='contained' color='primary' type='submit'>Login</Button>
       					</div>
 
-              <div className={classes.linkContainer}>
-                <Link href='account/register' className={classes.link}>
+      					<div className={classes.linkContainer}>
+                <Link href='register' className={classes.link}>
                   Don't have an account? Sign Up
                 </Link>
-              </div>
+      					</div>
       				</form>
       			</CardContent>
       		</Card>
@@ -90,8 +90,7 @@ export default function LoginPage() {
 }
 
 // export async function getServerSideProps() {
-//   const { data } = await axios.get('http://localhost:8000/categories')
-
+//   const { data } = await axios.get('http://localhost:7777404-
 //   return {
 //     props: {
 //       categories: data.results

@@ -38,21 +38,59 @@ export const AuthenticationProvider = ({ children }) => {
 
 			router.push('/')
 		} catch(error) {
-		if (error.response && error.response.data) {
-			setError(error.response.data.message)
-			return      
-		} else if (error.request) {
-			setError('Something went wrong')
-			return  
-		} else {
+		  if (error.response & error.response.data) {
+		  	setError(error.response.data.message)
+		  	return      
+	      } else if (error.request) {
+		    setError('Something went wrong')
+		    return  
+	      } else {
 			setError('Something went wrong')
 			return
+	      }
+	      console.error('Error', error.message);
+	      setError('Something went wrong')
+	      return
 		}
+	}
+	const register = async  ({ username, email, password  }) => {
+
+		const config = {
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			}
+		}
+
+		const body = {
+			username,
+			password
+		}
+
+		try {
+			//call nextjs api function to create a user
+			await axios.post('http://localhost:3001/api/login', body, config)
+			login({ username, password})
+			 
+		} catch(error) {
+		  if (error.response & error.response.data) {
+		  	setError(error.response.data.message)
+		  	return      
+	      } else if (error.request) {
+		    setError('Something went wrong')
+		    return  
+	      } else {
+			setError('Something went wrong')
+			return
+	      }
+	      console.error('Error', error.message);
+	      setError('Something went wrong')
+	      return
 		}
 	}
 
 	return (
-		<AuthenticationContext.Provider value={{ user, accessToken, error, login }}>
+		<AuthenticationContext.Provider value={{ user, accessToken, error, login, register }}>
 			{children}
 		</AuthenticationContext.Provider>
 	)
