@@ -90,8 +90,8 @@ export default function RegisterPage() {
       					</div>
 
       					<div className={classes.linkContainer}>
-      						<Link href='/account/login'>
-      							<a className={classes.link}>Already have an account? Sign In</a>
+      						<Link href='/account/login' className={classes.link}>
+      							Already have an account? Sign In
       						</Link>
       					</div>
       				</form>
